@@ -35,7 +35,7 @@ $desctop = isset($desctop) ? $desctop : '';
 
 //Используем отдельный шаблон для Tablet или нет
 $useTablet = isset($useTablet) ? $useTablet : '1';
-if ($useTablet == 0) {$tablet == $mobile;}
+if ($useTablet == 0) {$tablet = $mobile;}
 
 //Передача переменно isMobile из GET в SESSION для принудительного переключения версий 
 if (in_array($_GET['isMobile'], array("tablet", "mobile", "desctop"))) {
