@@ -1,4 +1,4 @@
-﻿//<?php
+//<?php
 /**
  * isMobile
  * 
@@ -28,23 +28,35 @@ http://mobiledetect.net - файлик Mobile_Detect.php брать по ссы�
 require_once MODX_BASE_PATH.'assets/snippets/ismobile/Mobile_Detect.php';
 $detect = new Mobile_Detect;
 
+//определим старье:
+if($detect->isAndroidOS() && $detect->isSafari() && (intval($detect->version('Android')) < 5))
+	return $desctop;
+
 //Задаем нужные нам значения для вывода
 $tablet = isset($tablet) ? $tablet : '';	
 $mobile = isset($mobile) ? $mobile : '';
 $desctop = isset($desctop) ? $desctop : '';
 
 //Используем отдельный шаблон для Tablet или нет
-$useTablet = isset($useTablet) ? $useTablet : '1';
+$useTablet = isset($useTablet) ? $useTablet : 0;
 if ($useTablet == 0) {$tablet = $mobile;}
 
 //Передача переменно isMobile из GET в SESSION для принудительного переключения версий 
-if (in_array($_GET['isMobile'], array("tablet", "mobile", "desctop"))) {
-	$_SESSION['isMobile'] = $_GET['isMobile'];
-} 
+if(array_key_exists('isMobile', $_GET))
+{
+	if (in_array($_GET['isMobile'], array("tablet", "mobile", "desctop")))
+	{
+		$_SESSION['isMobile'] = $_GET['isMobile'];
+	}
+}
+
 //Проверка на принудительный вывод нужной версии через параметр в сессии 'isMobile'     
-if($_SESSION['isMobile'] == 'tablet')  return $tablet;
-if($_SESSION['isMobile'] == 'mobile')  return $mobile;
-if($_SESSION['isMobile'] == 'desctop') return $desctop;
+if(array_key_exists('isMobile', $_SESSION))
+{
+	if($_SESSION['isMobile'] == 'tablet')  return $tablet;
+	if($_SESSION['isMobile'] == 'mobile')  return $mobile;
+	if($_SESSION['isMobile'] == 'desctop') return $desctop;
+}
 
 //Вывод в зависимости от типа устройства
 if( $detect->isTablet() ) return $tablet;
