@@ -15,8 +15,8 @@
 /*
 http://mobiledetect.net - файлик Mobile_Detect.php брать по ссылке 
 [!isMobile? 
-	&desctop=`@CODE: <a href="[~[*id*]~]?isMobile=mobile">Мобильная версия</a>`
-	&mobile=`@CODE: <a href="[~[*id*]~]?isMobile=desctop">Полная версия</a>`
+	&desctop=`<a href="[~[*id*]~]?isMobile=mobile">Мобильная версия</a>`
+	&mobile=`<a href="[~[*id*]~]?isMobile=desctop">Полная версия</a>`
 !]
 [!isMobile? 
     &desctop=`<meta name="viewport" content="width=960">`
